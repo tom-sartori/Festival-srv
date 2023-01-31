@@ -4,6 +4,8 @@ import org.bson.Document;
 
 import java.util.Objects;
 
+import static festival.srv.constant.MongoDbConstants.*;
+
 public class Fruit implements Entity {
 
 	private String id;
@@ -13,9 +15,9 @@ public class Fruit implements Entity {
 	public Fruit() { }
 
 	public Fruit(Document document) {
-		this.id = document.getObjectId("_id").toString();
-		this.name = document.getString("name");
-		this.description = document.getString("description");
+		this.id = document.getObjectId(ID).toString();
+		this.name = document.getString(NAME);
+		this.description = document.getString(DESCRIPTION);
 	}
 
 	public String getId() {

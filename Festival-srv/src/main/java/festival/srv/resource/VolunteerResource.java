@@ -1,6 +1,7 @@
 package festival.srv.resource;
 
 import com.google.gson.Gson;
+import festival.srv.constant.ApiPaths;
 import festival.srv.entity.Volunteer;
 import festival.srv.service.VolunteerService;
 
@@ -8,9 +9,9 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-import static festival.srv.resource.Resource.toJson;
+import static festival.srv.resource.Util.toJson;
 
-@Path("/volunteers")
+@Path(ApiPaths.VOLUNTEER)
 @Produces("application/json")
 @Consumes("application/json")
 public class VolunteerResource {

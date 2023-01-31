@@ -61,7 +61,13 @@ public abstract class Service<T extends Entity> {
 	 * @return The document.
 	 */
 	protected Document getDocument(String id){
-		Document document = getCollection().find(new Document(ID, new ObjectId(id))).first();
+		Document document;
+		try {
+			document = getCollection().find(new Document(ID, new ObjectId(id))).first();
+		}
+		catch (IllegalArgumentException e) {
+			throw new BadRequestException("The id is not valid. " + e.getMessage());
+		}
 		if (document == null) {
 			throw new NotFoundException();
 		}

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>festival.srv</groupId>
   <artifactId>Festival-srv</artifactId>
@@ -30,18 +30,35 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-amazon-lambda-http</artifactId>
     </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-resteasy -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-resteasy</artifactId>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/io.quarkus/quarkus-mongodb-client -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-mongodb-client</artifactId>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
@@ -52,6 +69,7 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>

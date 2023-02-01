@@ -8,7 +8,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static festival.srv.constant.MongoDbConstants.*;
+import static festival.srv.constant.DbCollections.VOLUNTEERS_COLLECTION;
+import static festival.srv.constant.DbKeys.*;
 
 @ApplicationScoped
 public class VolunteerService extends Service<Volunteer> {

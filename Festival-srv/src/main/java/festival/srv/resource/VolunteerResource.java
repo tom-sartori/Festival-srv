@@ -48,7 +48,7 @@ public class VolunteerResource {
 	 * @return 200 with the volunteer.
 	 */
 	@GET
-	@Path("/{id}")
+	@Path("/id/{id}")
 	public Response read(@PathParam("id") String id) {
 		String json = toJson(volunteerService.read(id));
 		return Response.status(200).entity(json).build();
@@ -61,7 +61,7 @@ public class VolunteerResource {
 	 * @param jsonBody the json body of the volunteer. The id is ignored.
 	 * @return 204 if the volunteer is updated.
 	 */
-	@PUT
+	@PATCH
 	@Path("/{id}")
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Volunteer volunteer = new Gson().fromJson(jsonBody, Volunteer.class);

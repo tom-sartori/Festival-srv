@@ -4,7 +4,7 @@ import org.bson.Document;
 
 import java.util.Objects;
 
-import static festival.srv.constant.MongoDbConstants.*;
+import static festival.srv.constant.DbKeys.*;
 
 public class Volunteer implements Entity {
 

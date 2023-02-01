@@ -47,6 +47,7 @@ gsed -i "s/$sampleLower/$targetLower/g" $targetEntityPath
 
 gsed -i "s/$sampleClass/$1/g" $targetResourcePath
 gsed -i "s/$sampleLower/$targetLower/g" $targetResourcePath
+gsed -i "s/$sampleUpper/$targetUpper/g" $targetResourcePath
 
 gsed -i "s/$sampleClass/$1/g" $targetServicePath
 gsed -i "s/$sampleLower/$targetLower/g" $targetServicePath

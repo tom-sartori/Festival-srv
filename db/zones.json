@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "5b1f3b5c9c9d2a0014d1b2d1",
+    "name": "Esplanade-Gauche",
+    "gameRefs": [
+      "5b1f3b5c9c9d2a0014d1b2d0",
+      "5b1f3b5c9c9d2a0014d1b2d2"
+    ],
+    "slots": [
+      {
+        "startDate": "2018-06-14T10:00:00+02:00",
+        "endDate": "2018-06-14T11:00:00+02:00",
+        "volunteerRefs": [
+          "5b1f3b5c9c9d2a0014d1b2d9",
+          "5b1f3b5c9c9d2a0014d1b2d4"
+        ]
+      }
+    ]
+  }
+]

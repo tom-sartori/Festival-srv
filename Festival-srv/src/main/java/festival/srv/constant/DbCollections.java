@@ -1,6 +1,8 @@
 package festival.srv.constant;
 
-public class DbCollections {
+public final class DbCollections {
+
+	private DbCollections() { }
 
 	public static final String DATABASE_NAME = "Festival-db";
 	public static final String FRUITS_COLLECTION = "fruits";

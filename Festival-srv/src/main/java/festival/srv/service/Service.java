@@ -15,8 +15,8 @@ import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static festival.srv.constant.MongoDbConstants.DATABASE_NAME;
-import static festival.srv.constant.MongoDbConstants.ID;
+import static festival.srv.constant.DbCollections.DATABASE_NAME;
+import static festival.srv.constant.DbKeys.*;
 
 public abstract class Service<T extends Entity> {
 

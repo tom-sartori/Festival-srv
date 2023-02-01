@@ -61,7 +61,7 @@ public class FruitResource {
 	 * @param jsonBody the json body of the fruit. The id is ignored.
 	 * @return 204 if the fruit is updated.
 	 */
-	@PUT
+	@PATCH
 	@Path("/{id}")
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Fruit fruit = new Gson().fromJson(jsonBody, Fruit.class);

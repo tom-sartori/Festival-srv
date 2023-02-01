@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static festival.srv.constant.DbCollections.DATABASE_NAME;
-import static festival.srv.constant.DbKeys.*;
+import static festival.srv.constant.DbKeys.ID;
 
 public abstract class Service<T extends Entity> {
 
@@ -82,6 +82,9 @@ public abstract class Service<T extends Entity> {
 	 */
 	@Transactional
 	public void update(String id, T t){
+		if (id.equals(":id")) {
+			throw new BadRequestException("The id is null. ");
+		}
 		try {
 			t.setId(null);
 			UpdateResult updateResult = getCollection().updateOne(new Document(ID, new ObjectId(id)), new Document("$set", t));

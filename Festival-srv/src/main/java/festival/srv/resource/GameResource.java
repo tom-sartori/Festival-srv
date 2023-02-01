@@ -99,7 +99,7 @@ public class GameResource {
 	 * @param jsonBody the json body of the game. The id is ignored.
 	 * @return 204 if the game is updated.
 	 */
-	@PUT
+	@PATCH
 	@Path("/{id}")
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Game game = new Gson().fromJson(jsonBody, Game.class);

@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static festival.srv.constant.MongoDbConstants.*;
+import static festival.srv.constant.DbCollections.GAMES_COLLECTION;
+import static festival.srv.constant.DbKeys.NAME;
+import static festival.srv.constant.DbKeys.TYPE;
 
 @ApplicationScoped
 public class GameService extends Service<Game> {

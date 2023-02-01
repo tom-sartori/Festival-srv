@@ -8,7 +8,9 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static festival.srv.constant.MongoDbConstants.*;
+import static festival.srv.constant.DbCollections.FRUITS_COLLECTION;
+import static festival.srv.constant.DbKeys.DESCRIPTION;
+import static festival.srv.constant.DbKeys.NAME;
 
 @ApplicationScoped
 public class FruitService extends Service<Fruit> {

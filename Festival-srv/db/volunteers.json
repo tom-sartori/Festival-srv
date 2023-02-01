@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "5e9b5b0b5b9c1c0b5c5b9c1c",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "jd@gmail.com"
+  },
+  {
+    "_id": "5e9b5b0b5b9c1c0b5c5b9c1d",
+    "firstName": "Jane",
+    "lastName": "Doe",
+    "email": "jde@gmail.com"
+  }
+]

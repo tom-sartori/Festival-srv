@@ -2,9 +2,9 @@ package festival.srv.entity;
 
 import org.bson.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static festival.srv.constant.DbKeys.*;
 
@@ -22,7 +22,9 @@ public class Zone implements Entity {
 		this.id = document.getObjectId(ID).toString();
 		this.name = document.getString(NAME);
 		this.gameRefs = document.getList(GAME_REFS, String.class);
-		this.slots = document.get(SLOTS, ArrayList.class);
+		this.slots = document.getList(SLOTS, Document.class).stream()
+				.map(Slot::new)
+				.collect(Collectors.toList());
 	}
 
 	public String getId() {

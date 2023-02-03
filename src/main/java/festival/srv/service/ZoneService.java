@@ -1,11 +1,26 @@
 package festival.srv.service;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.mongodb.MongoWriteException;
+import com.mongodb.client.result.UpdateResult;
+import festival.srv.entity.Game;
+import festival.srv.entity.Slot;
+import festival.srv.entity.Volunteer;
 import festival.srv.entity.Zone;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import static festival.srv.constant.DbCollections.ZONES_COLLECTION;
@@ -47,6 +62,107 @@ public class ZoneService extends Service<Zone> {
 	 */
 	public Zone read(String id){
 		return new Zone(getDocument(id));
+	}
+
+	/**
+	 * add a game to a zone in the collection. The id is not updated.
+	 *
+	 * @param idZone The id of the document.
+	 *
+	 * @param idGame The id of the game.
+	 */
+
+	@Transactional
+	public void addGameById(String idZone, String idGame){
+		if (idZone.equals(":idZone")) {
+			throw new BadRequestException("The id is null. ");
+		}
+		try {
+			Zone zone = read(idZone);
+			Game game = gameService.read(idGame);
+			if (game != null){
+				if (!zone.getGameRefs().contains(idGame)){
+					zone.getGameRefs().add(idGame);
+					zone.setId(null);
+
+					UpdateResult updateResult = getCollection().updateOne(new Document(ID, new ObjectId(idZone)), new Document("$set", zone));
+					if (updateResult.getMatchedCount() == 0) {
+						throw new NotFoundException();
+					}
+				}
+			}
+		}
+		catch (MongoWriteException e) {
+			if (e.getCode() == 6) {
+				throw new BadRequestException("Modifiers operate on fields but we found type null instead. ");
+			}
+			throw e;
+		}
+	}
+
+	/**
+	 * add a volunteer to a zone in the collection for a slot. If the slot does not exist, the slot is created. The id is not updated.
+	 *
+	 * @param idZone The id of the document.
+	 *
+	 * @param idVolunteer The id of the volunteer.
+	 *
+	 * @param jsonBody contains the start date and end date of the slot
+	 */
+
+	@Transactional
+	public void addVolunteerSlot(String idZone, String idVolunteer, String jsonBody){
+		if (idZone.equals(":idZone")) {
+			throw new BadRequestException("The id is null. ");
+		}
+		try {
+			//recupere la zone avec id en parametre
+			Zone zone = read(idZone);
+			Gson gson = new Gson();
+			JsonObject jsonObject = gson.fromJson(jsonBody, JsonObject.class);
+
+			String startDateString = jsonObject.get("startDate").getAsString();
+			String endDateString = jsonObject.get("endDate").getAsString();
+			SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy, HH:mm:ss a", Locale.ENGLISH);
+
+			Date startDate = formatter.parse(startDateString);
+			Date endDate = formatter.parse(endDateString);
+
+			Volunteer volunteer = volunteerService.read(idVolunteer);
+			if (volunteer!=null){
+				boolean foundSlot = false;
+				for (Slot slot : zone.getSlots()) {
+					if (slot.getStartDate().compareTo(startDate) == 0 && slot.getEndDate().compareTo(endDate) == 0) {
+						foundSlot = true;
+						if (!slot.getVolunteerRefs().contains(idVolunteer)){
+							slot.getVolunteerRefs().add(idVolunteer);
+							break;
+						}
+					}
+				}
+				//si le creneau existe pas, on le crée
+				if (!foundSlot) {
+					System.out.println("test");
+					List<String> listVolunteer = new ArrayList<>();
+					Slot newSlot = new Slot(startDate, endDate, listVolunteer);
+					newSlot.getVolunteerRefs().add(idVolunteer);
+					zone.getSlots().add(newSlot);
+				}
+			}
+			zone.setId(null);
+			UpdateResult updateResult = getCollection().updateOne(new Document(ID, new ObjectId(idZone)), new Document("$set", zone));
+			if (updateResult.getMatchedCount() == 0) {
+				throw new NotFoundException();
+			}
+		}
+		catch (MongoWriteException e) {
+			if (e.getCode() == 6) {
+				throw new BadRequestException("Modifiers operate on fields but we found type null instead. ");
+			}
+			throw e;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package festival.srv.entity;
 
+import org.bson.Document;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +13,18 @@ public class Slot {
 	private List<String> volunteerRefs;
 
 	public Slot() { }
+
+	public Slot(Document document) {
+		this.startDate = document.getDate("startDate");
+		this.endDate = document.getDate("endDate");
+		this.volunteerRefs = document.getList("volunteerRefs", String.class);
+	}
+
+	public Slot(Date startDate, Date endDate, List<String> volunteerRefs) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.volunteerRefs = volunteerRefs;
+	}
 
 	public Date getStartDate() {
 		return startDate;

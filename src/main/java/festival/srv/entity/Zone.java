@@ -27,6 +27,12 @@ public class Zone implements Entity {
 				.collect(Collectors.toList());
 	}
 
+	public Zone(String name, List<String> gameRefs, List<Slot> slots) {
+		this.name = name;
+		this.gameRefs = gameRefs;
+		this.slots = slots;
+	}
+
 	public String getId() {
 		return id;
 	}

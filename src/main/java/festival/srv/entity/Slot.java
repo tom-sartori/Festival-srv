@@ -14,17 +14,16 @@ public class Slot {
 
 	public Slot() { }
 
-	// Constructor with document
 	public Slot(Document document) {
 		this.startDate = document.getDate("startDate");
 		this.endDate = document.getDate("endDate");
 		this.volunteerRefs = document.getList("volunteerRefs", String.class);
 	}
 
-	public Slot(Slot slot) {
-		this.startDate = slot.startDate;
-		this.endDate = slot.endDate;
-		this.volunteerRefs = slot.volunteerRefs;
+	public Slot(Date startDate, Date endDate, List<String> volunteerRefs) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.volunteerRefs = volunteerRefs;
 	}
 
 	public Date getStartDate() {

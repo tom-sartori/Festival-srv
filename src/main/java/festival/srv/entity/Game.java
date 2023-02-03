@@ -20,6 +20,11 @@ public class Game implements Entity {
 		this.type = document.getString(TYPE);
 	}
 
+	public Game(String name, String type) {
+		this.name = name;
+		this.type = type;
+	}
+
 	public String getId() {
 		return id;
 	}

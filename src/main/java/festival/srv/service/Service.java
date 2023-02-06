@@ -29,6 +29,8 @@ public abstract class Service<T extends Entity> {
 	@Inject
 	protected VolunteerService volunteerService;
 
+  @Inject
+  protected ZoneService zoneService;
 
 	protected abstract String getCollectionName();
 

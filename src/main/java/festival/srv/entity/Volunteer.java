@@ -22,6 +22,12 @@ public class Volunteer implements Entity {
 		this.email = document.getString(EMAIL);
 	}
 
+	public Volunteer(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
 	public String getId() {
 		return id;
 	}

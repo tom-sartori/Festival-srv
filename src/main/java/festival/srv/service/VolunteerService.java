@@ -1,10 +1,14 @@
 package festival.srv.service;
 
+import festival.srv.dto.SlotVolunteerDto;
+import festival.srv.entity.Slot;
 import festival.srv.entity.Volunteer;
+import festival.srv.entity.Zone;
 import org.bson.Document;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +41,24 @@ public class VolunteerService extends Service<Volunteer> {
 	 */
 	public List<Volunteer> read(){
 		return getDocumentList().stream().map(Volunteer::new).collect(Collectors.toList());
+	}
+
+	/**
+	 * Read all volunteers by slot for a given zone. If there is no volunteer, an empty list is returned.
+	 *
+	 * @return list of volunteers.
+	 */
+	public List<SlotVolunteerDto> readBySlotForOneZoneId(String zoneId) {
+		Zone zone = zoneService.read(zoneId);
+
+		return zone.getSlots().stream()
+				.map(slot -> {
+					List<Volunteer> volunteerList = slot.getVolunteerRefs().stream()
+							.map(this::read)
+							.collect(Collectors.toList());
+					return new SlotVolunteerDto(zoneId, slot, volunteerList);
+				})
+				.collect(Collectors.toList());
 	}
 
 	/**

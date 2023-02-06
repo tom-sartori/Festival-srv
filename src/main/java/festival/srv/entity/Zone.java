@@ -5,6 +5,10 @@ import org.bson.Document;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static festival.srv.constant.DbKeys.*;
 
@@ -25,6 +29,12 @@ public class Zone implements Entity {
 		this.slots = document.getList(SLOTS, Document.class).stream()
 				.map(Slot::new)
 				.collect(Collectors.toList());
+	}
+
+	public Zone(String name, List<String> gameRefs, List<Slot> slots) {
+		this.name = name;
+		this.gameRefs = gameRefs;
+		this.slots = slots;
 	}
 
 	public String getId() {

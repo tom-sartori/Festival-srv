@@ -9,7 +9,6 @@ import festival.srv.service.GameService;
 import festival.srv.service.VolunteerService;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
-import io.quarkus.runtime.annotations.QuarkusMain;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import java.util.List;
 
 import static festival.srv.resource.Util.toJson;
 
-@QuarkusMain
 public class Main {
 	public static void main(String... args) {
 		Quarkus.run(MyApp.class, args);

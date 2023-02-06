@@ -65,13 +65,11 @@ public class ZoneService extends Service<Zone> {
 	}
 
 	/**
-	 * add a game to a zone in the collection. The id is not updated.
+	 * Add a game to a zone in the collection. The id is not updated.
 	 *
 	 * @param idZone The id of the document.
-	 *
 	 * @param idGame The id of the game.
 	 */
-
 	@Transactional
 	public void addGameById(String idZone, String idGame){
 		if (idZone.equals(":idZone")) {
@@ -101,35 +99,31 @@ public class ZoneService extends Service<Zone> {
 	}
 
 	/**
-	 * add a volunteer to a zone in the collection for a slot. If the slot does not exist, the slot is created. The id is not updated.
+	 * Add a volunteer to a zone in the collection for a slot. If the slot does not exist, the slot is created. The id is not updated.
 	 *
 	 * @param idZone The id of the document.
-	 *
 	 * @param idVolunteer The id of the volunteer.
-	 *
 	 * @param jsonBody contains the start date and end date of the slot
 	 */
-
 	@Transactional
 	public void addVolunteerSlot(String idZone, String idVolunteer, String jsonBody){
 		if (idZone.equals(":idZone")) {
 			throw new BadRequestException("The id is null. ");
 		}
 		try {
-			//recupere la zone avec id en parametre
 			Zone zone = read(idZone);
 			Gson gson = new Gson();
 			JsonObject jsonObject = gson.fromJson(jsonBody, JsonObject.class);
 
-			String startDateString = jsonObject.get("startDate").getAsString();
-			String endDateString = jsonObject.get("endDate").getAsString();
+			String startDateString = jsonObject.get(START_DATE).getAsString();
+			String endDateString = jsonObject.get(END_DATE).getAsString();
 			SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy, HH:mm:ss a", Locale.ENGLISH);
 
 			Date startDate = formatter.parse(startDateString);
 			Date endDate = formatter.parse(endDateString);
 
 			Volunteer volunteer = volunteerService.read(idVolunteer);
-			if (volunteer!=null){
+			if (volunteer != null){
 				boolean foundSlot = false;
 				for (Slot slot : zone.getSlots()) {
 					if (slot.getStartDate().compareTo(startDate) == 0 && slot.getEndDate().compareTo(endDate) == 0) {
@@ -140,9 +134,8 @@ public class ZoneService extends Service<Zone> {
 						}
 					}
 				}
-				//si le creneau existe pas, on le crée
+				// If the slot does not exist, we create it.
 				if (!foundSlot) {
-					System.out.println("test");
 					List<String> listVolunteer = new ArrayList<>();
 					Slot newSlot = new Slot(startDate, endDate, listVolunteer);
 					newSlot.getVolunteerRefs().add(idVolunteer);

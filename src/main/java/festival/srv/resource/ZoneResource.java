@@ -38,6 +38,7 @@ public class ZoneResource {
 	 */
 	@GET
 	public Response read() {
+		System.out.println("test");
 		String json = toJson(zoneService.read());
 		return Response.status(200).entity(json).build();
 	}
@@ -66,6 +67,38 @@ public class ZoneResource {
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Zone zone = new Gson().fromJson(jsonBody, Zone.class);
 		zoneService.update(id, zone);
+		return Response.status(204).build();
+	}
+
+
+	/**
+	 * Add a game to a zone. If the zone does not exist, a 404 is returned.
+	 *
+	 * @param idZone the id of the zone
+	 * @param idGame the id of the game
+	 * @return 204 if the game is added to the zone.
+	 */
+
+	@PATCH
+	@Path("/zone-id/{idZone}/game-id/{idGame}")
+	public Response addGame(@PathParam("idZone") String idZone, @PathParam("idGame") String idGame){
+		zoneService.addGameById(idZone, idGame);
+		return Response.status(204).build();
+	}
+
+	/**
+	 * Add a volunteer to a zone for a slot. If the slot does not exist, the slot is created. If the zone does not exist, a 404 is returned.
+	 *
+	 * @param idZone the id of the zone
+	 * @param idVolunteer the id of the volunteer
+	 * @param jsonBody contains the start date and the end date of the slot
+	 * @return 204 if the volunteer is added to the zone for a slot.
+	 */
+
+	@PATCH
+	@Path("/zone-id/{idZone}/volunteer-id/{idVolunteer}")
+	public Response addVolunteerSlot(@PathParam("idZone") String idZone, @PathParam("idVolunteer") String idVolunteer, String jsonBody){
+		zoneService.addVolunteerSlot(idZone, idVolunteer, jsonBody);
 		return Response.status(204).build();
 	}
 

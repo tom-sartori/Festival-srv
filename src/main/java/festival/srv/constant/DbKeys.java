@@ -13,4 +13,6 @@ public final class DbKeys {
 	public static final String TYPE = "type";
 	public static final String GAME_REFS = "gameRefs";
 	public static final String SLOTS = "slots";
+	public static final String START_DATE = "startDate";
+	public static final String END_DATE = "endDate";
 }

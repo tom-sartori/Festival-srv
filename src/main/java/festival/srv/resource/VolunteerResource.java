@@ -43,6 +43,18 @@ public class VolunteerResource {
 	}
 
 	/**
+	 * Read all volunteers by slot for a given zone. If there is no volunteer, an empty list is returned.
+	 *
+	 * @return 200 with the list of volunteers.
+	 */
+	@GET
+	@Path("/zone-id/{zone-id}")
+	public Response readBySlotForOneZoneId(@PathParam("zone-id") String zoneId) {
+		String json = toJson(volunteerService.readBySlotForOneZoneId(zoneId));
+		return Response.status(200).entity(json).build();
+	}
+
+	/**
 	 * Read a volunteer by its id. If the volunteer does not exist, a 404 is returned.
 	 * @param id the id of the volunteer.
 	 * @return 200 with the volunteer.

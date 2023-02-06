@@ -23,6 +23,9 @@ public abstract class Service<T extends Entity> {
 	@Inject
 	protected MongoClient mongoClient;
 
+	@Inject
+	protected ZoneService zoneService;
+
 
 	protected abstract String getCollectionName();
 

@@ -70,13 +70,13 @@ public class GameResource {
 	/**
 	 * Read all games by zone. If there is no game, an empty list is returned.
 	 *
-	 * @param zone the zone of the game.
+	 * @param zoneId the id of the zone.
 	 * @return 200 with the list of games.
 	 */
 	@GET
-	@Path("/zone/{zone}")
-	public Response readByZone(@PathParam("zone") String zone) {
-		String json = toJson(gameService.readByZone(zone));
+	@Path("/zone-id/{zoneId}")
+	public Response readByZone(@PathParam("zoneId") String zoneId) {
+		String json = toJson(gameService.readByZone(zoneId));
 		return Response.status(200).entity(json).build();
 	}
 

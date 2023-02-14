@@ -49,7 +49,7 @@ public class GameService extends Service<Game> {
 	 */
 	public List<Game> readByName(String name) {
 		return getDocumentList().stream()
-				.filter(document -> document.getString(NAME).toLowerCase().matches("(.*)" + name.toLowerCase() + "(.*)"))
+				.filter(document -> document.getString(NAME).toLowerCase().matches("(.*)(^| )" + name.toLowerCase() + "(.*)"))
 				.map(Game::new)
 				.collect(Collectors.toList());
 	}
@@ -62,7 +62,7 @@ public class GameService extends Service<Game> {
 	 */
 	public List<Game> readByType(String type){
 		return getDocumentList().stream()
-				.filter(document -> document.getString(TYPE).toLowerCase().matches("(.*)" + type.toLowerCase() + "(.*)"))
+				.filter(document -> document.getString(TYPE).toLowerCase().matches("(.*)(^| )" + type.toLowerCase() + "(.*)"))
 				.map(Game::new)
 				.collect(Collectors.toList());
 	}

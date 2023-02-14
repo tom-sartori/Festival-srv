@@ -43,6 +43,45 @@ public class VolunteerResource {
 	}
 
 	/**
+	 * Read all volunteers by lastname. If there is no volunteer, an empty list is returned.
+	 * @param lastname the name of the volunteer.
+	 * @return 200 with the list of volunteers.
+	 */
+	@GET
+	@Path("/name/{name}")
+	public Response readByLastName(@PathParam("name") String lastname) {
+		String json = toJson(volunteerService.readByLastName(lastname));
+		return Response.status(200).entity(json).build();
+	}
+
+	/**
+	 * Read all volunteers by firstname. If there is no volunteer, an empty list is returned.
+	 * @param firstname the firstname of the volunteer.
+	 * @return 200 with the list of volunteers.
+	 */
+	@GET
+	@Path("/firstname/{firstname}")
+	public Response readByFirstName(@PathParam("firstname") String firstname) {
+		String json = toJson(volunteerService.readByFirstName(firstname));
+		return Response.status(200).entity(json).build();
+	}
+
+	/**
+	 * Read all volunteers by firstname or lastname. If there is no volunteer, an empty list is returned.
+	 * @param name the firstname/lastname of the volunteer.
+	 * @return 200 with the list of volunteers.
+	 */
+
+	@GET
+	@Path("/firstname-lastname/{name}")
+	public Response readByFirstNameOrLastName(@PathParam("name") String name){
+		String json = toJson(volunteerService.readByFirstNameOrLastName(name));
+		System.out.println(json);
+		return Response.status(200).entity(json).build();
+
+	}
+
+	/**
 	 * Read all volunteers by slot for a given zone. If there is no volunteer, an empty list is returned.
 	 *
 	 * @return 200 with the list of volunteers.

@@ -1,14 +1,12 @@
 package festival.srv.service;
 
 import festival.srv.dto.SlotVolunteerDto;
-import festival.srv.entity.Slot;
 import festival.srv.entity.Volunteer;
 import festival.srv.entity.Zone;
 import org.bson.Document;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +39,48 @@ public class VolunteerService extends Service<Volunteer> {
 	 */
 	public List<Volunteer> read(){
 		return getDocumentList().stream().map(Volunteer::new).collect(Collectors.toList());
+	}
+
+
+	/**
+	 * Get all volunteers with the same lastname.
+	 *
+	 * @param lastname The lastname of the volunteer.
+	 * @return The list of volunteers.
+	 */
+	public List<Volunteer> readByLastName(String lastname) {
+		return getDocumentList().stream()
+				.filter(document -> document.getString(LAST_NAME).toLowerCase().matches("(.*)" + lastname.toLowerCase() + "(.*)"))
+				.map(Volunteer::new)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Get all volunteers with the same lastname.
+	 *
+	 * @param firstname The lastname of the volunteer.
+	 * @return The list of volunteers.
+	 */
+	public List<Volunteer> readByFirstName(String firstname) {
+		return getDocumentList().stream()
+				.filter(document -> document.getString(FIRST_NAME).toLowerCase().matches("(.*)" + firstname.toLowerCase() + "(.*)"))
+				.map(Volunteer::new)
+				.collect(Collectors.toList());
+	}
+
+	/**
+	 * Get all volunteers with the same lastname/firstname.
+	 *
+	 * @param name The firstname/lastname of the volunteer.
+	 * @return The list of volunteers.
+	 */
+
+	public List<Volunteer> readByFirstNameOrLastName(String name) {
+		return getDocumentList().stream()
+				.filter(document -> document.getString(FIRST_NAME).toLowerCase().contains(name.toLowerCase()) ||
+						document.getString(LAST_NAME).toLowerCase().contains(name.toLowerCase()))
+				.map(Volunteer::new)
+				.collect(Collectors.toList());
 	}
 
 	/**

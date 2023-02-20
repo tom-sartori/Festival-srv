@@ -1,6 +1,7 @@
 package festival.srv.resource;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import festival.srv.constant.ApiPaths;
 import festival.srv.entity.Zone;
 import festival.srv.service.ZoneService;
@@ -27,7 +28,9 @@ public class ZoneResource {
 	 */
 	@POST
 	public Response create(String jsonBody) {
-		Zone zone = new Gson().fromJson(jsonBody, Zone.class);
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd'T'HH:mm").create();
+		Zone zone = gson.fromJson(jsonBody, Zone.class);
 		zoneService.create(zone);
 		return Response.status(201).build();
 	}

@@ -65,6 +65,19 @@ public class ZoneService extends Service<Zone> {
 	}
 
 	/**
+	 * Get all zones with the same name.
+	 *
+	 * @param name The name of the zone.
+	 * @return The list of zones.
+	 */
+	public List<Zone> readByName(String name) {
+		return getDocumentList().stream()
+				.filter(document -> document.getString(NAME).toLowerCase().matches("(.*)(^| )" + name.toLowerCase() + "(.*)"))
+				.map(Zone::new)
+				.collect(Collectors.toList());
+	}
+
+	/**
 	 * Add a game to a zone in the collection. The id is not updated.
 	 *
 	 * @param idZone The id of the document.

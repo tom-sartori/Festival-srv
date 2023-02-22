@@ -38,7 +38,6 @@ public class ZoneResource {
 	 */
 	@GET
 	public Response read() {
-		System.out.println("test");
 		String json = toJson(zoneService.read());
 		return Response.status(200).entity(json).build();
 	}
@@ -54,6 +53,19 @@ public class ZoneResource {
 		String json = toJson(zoneService.read(id));
 		return Response.status(200).entity(json).build();
 	}
+
+	/**
+	 * Read all zones by name. If there is no zone, an empty list is returned.
+	 * @param name the name of the game.
+	 * @return 200 with the list of zones.
+	 */
+	@GET
+	@Path("/name/{name}")
+	public Response readByName(@PathParam("name") String name) {
+		String json = toJson(zoneService.readByName(name));
+		return Response.status(200).entity(json).build();
+	}
+
 
 	/**
 	 * Update a zone. If the zone does not exist, a 404 is returned.

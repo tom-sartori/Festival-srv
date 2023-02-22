@@ -50,6 +50,14 @@ public class UserResource {
 		return userRepository.register(user);
 	}
 
+	@POST
+	@Path(LOGIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(User user) {
+		return userRepository.login(user);
+	}
+
 	@DELETE
 	@Path("/{id}")
 	public void deleteUser(@PathParam("id") String id) {

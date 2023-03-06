@@ -94,6 +94,13 @@
       <artifactId>quarkus-smallrye-jwt</artifactId>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+    <dependency>
+      <groupId>org.mindrot</groupId>
+      <artifactId>jbcrypt</artifactId>
+      <version>0.4</version>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>

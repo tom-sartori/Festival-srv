@@ -3,6 +3,7 @@ package festival.srv.repository;
 import festival.srv.entity.User;
 import festival.srv.service.JwtService;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -52,6 +53,7 @@ public class UserRepository implements PanacheMongoRepository<User> {
 		else {
 			// The user does not exist.
 			user.setId(null);
+			user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(15)));
 			persist(user);
 			return Response.status(Response.Status.CREATED).build();
 		}
@@ -74,7 +76,7 @@ public class UserRepository implements PanacheMongoRepository<User> {
 			}
 			else {
 				// The user exists.
-				if (supposedUser.getPassword().equals(user.getPassword())) {
+				if (BCrypt.checkpw(user.getPassword(), supposedUser.getPassword())) {
 					// The password is correct.
 					return Response
 							.status(Response.Status.OK)

@@ -68,16 +68,18 @@ public class UserRepository implements PanacheMongoRepository<User> {
 			User supposedUser = findByEmail(user.getEmail());
 			if (supposedUser == null) {
 				// The user does not exist.
-				return Response.status(Response.Status.NOT_FOUND)
-						.entity("User does not exist. ")
+				return Response.status(Response.Status.UNAUTHORIZED)
+						.entity("Bad credentials. ")
 						.build();
 			}
 			else {
 				// The user exists.
 				if (supposedUser.getPassword().equals(user.getPassword())) {
 					// The password is correct.
-					return Response.status(Response.Status.OK)
-							.entity(jwtService.generateJwt())
+					return Response
+							.status(Response.Status.OK)
+//							.entity(jwtService.generateJwt())
+							.entity("{ \"token\": \"" + jwtService.generateJwt() + "\" }")
 							.build();
 				}
 				else {

@@ -1,5 +1,6 @@
 package festival.srv.service;
 
+import festival.srv.constant.Roles;
 import io.smallrye.jwt.build.Jwt;
 
 import javax.inject.Singleton;
@@ -13,7 +14,7 @@ public class JwtService {
 
 	public String generateJwt() {
 		Set<String> roles = new HashSet<>(
-				Arrays.asList("admin", "writer")
+				Arrays.asList(Roles.ADMIN, Roles.WRITER)
 		);
 
 		return Jwt

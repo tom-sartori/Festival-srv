@@ -71,7 +71,9 @@ public class ZoneResource {
 	@Path("/{id}")
 	@RolesAllowed(Roles.ADMIN)
 	public Response update(@PathParam("id") String id, String jsonBody) {
-		Zone zone = new Gson().fromJson(jsonBody, Zone.class);
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd'T'HH:mm").create();
+		Zone zone = gson.fromJson(jsonBody, Zone.class);
 		zoneService.update(id, zone);
 		return Response.status(204).build();
 	}

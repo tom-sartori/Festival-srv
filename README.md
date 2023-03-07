@@ -1,54 +1,24 @@
 # Festival-srv Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Projet réalisé par **Tom Sartori** et **Victoria Arbaoui**.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+[Lien vers le site](https://festival-b90a6.firebaseapp.com).
 
-## Running the application in dev mode
+[Lien git du frontend](https://github.com/tom-sartori/festival-ui).
 
-You can run your application in dev mode that enables live coding using:
-```shell script
+
+## Description
+
+Ce projet a été réalisé avec **Quarkus** et requête une base **MongoDb**. En plus des fonctionnalités du sujet, il gère également les utilisateurs, leurs différents rôles et tokens. 
+
+
+## Hébergement
+
+Le projet est hébergé sur AWS et requête une base MongoDb. 
+
+
+## Installation
+
+```shell
 ./mvnw compile quarkus:dev
 ```
-
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
-
-## Packaging and running the application
-
-The application can be packaged using:
-```shell script
-./mvnw package
-```
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
-```
-
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-## Creating a native executable
-
-You can create a native executable using: 
-```shell script
-./mvnw package -Pnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
-```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/Festival-srv-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
-
-## Provided Code
-
-### RESTEasy JAX-RS
-
-Easily start your RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)

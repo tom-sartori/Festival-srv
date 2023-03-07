@@ -3,9 +3,11 @@ package festival.srv.resource;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import festival.srv.constant.ApiPaths;
+import festival.srv.constant.Roles;
 import festival.srv.entity.Zone;
 import festival.srv.service.ZoneService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -27,6 +29,7 @@ public class ZoneResource {
 	 * @return 201 if the zone is created.
 	 */
 	@POST
+	@RolesAllowed(Roles.ADMIN)
 	public Response create(String jsonBody) {
 		Gson gson = new GsonBuilder()
 				.setDateFormat("yyyy-MM-dd'T'HH:mm").create();
@@ -41,7 +44,6 @@ public class ZoneResource {
 	 */
 	@GET
 	public Response read() {
-		System.out.println("test");
 		String json = toJson(zoneService.read());
 		return Response.status(200).entity(json).build();
 	}
@@ -67,8 +69,11 @@ public class ZoneResource {
 	 */
 	@PATCH
 	@Path("/{id}")
+	@RolesAllowed(Roles.ADMIN)
 	public Response update(@PathParam("id") String id, String jsonBody) {
-		Zone zone = new Gson().fromJson(jsonBody, Zone.class);
+		Gson gson = new GsonBuilder()
+				.setDateFormat("yyyy-MM-dd'T'HH:mm").create();
+		Zone zone = gson.fromJson(jsonBody, Zone.class);
 		zoneService.update(id, zone);
 		return Response.status(204).build();
 	}
@@ -84,6 +89,7 @@ public class ZoneResource {
 
 	@PATCH
 	@Path("/zone-id/{idZone}/game-id/{idGame}")
+	@RolesAllowed(Roles.ADMIN)
 	public Response addGame(@PathParam("idZone") String idZone, @PathParam("idGame") String idGame){
 		zoneService.addGameById(idZone, idGame);
 		return Response.status(204).build();
@@ -100,6 +106,7 @@ public class ZoneResource {
 
 	@PATCH
 	@Path("/zone-id/{idZone}/volunteer-id/{idVolunteer}")
+	@RolesAllowed(Roles.ADMIN)
 	public Response addVolunteerSlot(@PathParam("idZone") String idZone, @PathParam("idVolunteer") String idVolunteer, String jsonBody){
 		zoneService.addVolunteerSlot(idZone, idVolunteer, jsonBody);
 		return Response.status(204).build();
@@ -113,6 +120,7 @@ public class ZoneResource {
 	 */
 	@DELETE
 	@Path("/{id}")
+	@RolesAllowed(Roles.ADMIN)
 	public Response delete(@PathParam("id") String id) {
 		zoneService.delete(id);
 		return Response.status(204).build();

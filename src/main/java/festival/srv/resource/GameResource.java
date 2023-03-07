@@ -2,9 +2,12 @@ package festival.srv.resource;
 
 import com.google.gson.Gson;
 import festival.srv.constant.ApiPaths;
+import festival.srv.constant.Roles;
 import festival.srv.entity.Game;
 import festival.srv.service.GameService;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -26,6 +29,7 @@ public class GameResource {
 	 * @return 201 if the game is created.
 	 */
 	@POST
+	@RolesAllowed(Roles.ADMIN)
 	public Response create(String jsonBody) {
 		Game game = new Gson().fromJson(jsonBody, Game.class);
 		gameService.create(game);
@@ -37,6 +41,7 @@ public class GameResource {
 	 * @return 200 with the list of games.
 	 */
 	@GET
+	@PermitAll
 	public Response read() {
 		String json = toJson(gameService.read());
 		return Response.status(200).entity(json).build();
@@ -101,6 +106,7 @@ public class GameResource {
 	 */
 	@PATCH
 	@Path("/{id}")
+	@RolesAllowed(Roles.ADMIN)
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Game game = new Gson().fromJson(jsonBody, Game.class);
 		gameService.update(id, game);
@@ -115,6 +121,7 @@ public class GameResource {
 	 */
 	@DELETE
 	@Path("/{id}")
+	@RolesAllowed(Roles.ADMIN)
 	public Response delete(@PathParam("id") String id) {
 		gameService.delete(id);
 		return Response.status(204).build();

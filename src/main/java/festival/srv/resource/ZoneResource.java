@@ -7,6 +7,7 @@ import festival.srv.constant.Roles;
 import festival.srv.entity.Zone;
 import festival.srv.service.ZoneService;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -43,6 +44,7 @@ public class ZoneResource {
 	 * @return 200 with the list of zones.
 	 */
 	@GET
+	@PermitAll
 	public Response read() {
 		String json = toJson(zoneService.read());
 		return Response.status(200).entity(json).build();
@@ -55,6 +57,7 @@ public class ZoneResource {
 	 */
 	@GET
 	@Path("/id/{id}")
+	@PermitAll
 	public Response read(@PathParam("id") String id) {
 		String json = toJson(zoneService.read(id));
 		return Response.status(200).entity(json).build();
@@ -67,6 +70,7 @@ public class ZoneResource {
 	 */
 	@GET
 	@Path("/name/{name}")
+	@PermitAll
 	public Response readByName(@PathParam("name") String name) {
 		String json = toJson(zoneService.readByName(name));
 		return Response.status(200).entity(json).build();

@@ -6,6 +6,7 @@ import festival.srv.constant.Roles;
 import festival.srv.entity.Volunteer;
 import festival.srv.service.VolunteerService;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -40,6 +41,7 @@ public class VolunteerResource {
 	 * @return 200 with the list of volunteers.
 	 */
 	@GET
+	@PermitAll
 	public Response read() {
 		String json = toJson(volunteerService.read());
 		return Response.status(200).entity(json).build();
@@ -52,6 +54,7 @@ public class VolunteerResource {
 	 */
 	@GET
 	@Path("/name/{name}")
+	@PermitAll
 	public Response readByLastName(@PathParam("name") String lastname) {
 		String json = toJson(volunteerService.readByLastName(lastname));
 		return Response.status(200).entity(json).build();
@@ -64,6 +67,7 @@ public class VolunteerResource {
 	 */
 	@GET
 	@Path("/firstname/{firstname}")
+	@PermitAll
 	public Response readByFirstName(@PathParam("firstname") String firstname) {
 		String json = toJson(volunteerService.readByFirstName(firstname));
 		return Response.status(200).entity(json).build();
@@ -77,6 +81,7 @@ public class VolunteerResource {
 
 	@GET
 	@Path("/firstname-lastname/{name}")
+	@PermitAll
 	public Response readByFirstNameOrLastName(@PathParam("name") String name){
 		String json = toJson(volunteerService.readByFirstNameOrLastName(name));
 		System.out.println(json);
@@ -91,6 +96,7 @@ public class VolunteerResource {
 	 */
 	@GET
 	@Path("/zone-id/{zone-id}")
+	@PermitAll
 	public Response readBySlotForOneZoneId(@PathParam("zone-id") String zoneId) {
 		String json = toJson(volunteerService.readBySlotForOneZoneId(zoneId));
 		return Response.status(200).entity(json).build();
@@ -103,6 +109,7 @@ public class VolunteerResource {
 	 */
 	@GET
 	@Path("/id/{id}")
+	@PermitAll
 	public Response read(@PathParam("id") String id) {
 		String json = toJson(volunteerService.read(id));
 		return Response.status(200).entity(json).build();

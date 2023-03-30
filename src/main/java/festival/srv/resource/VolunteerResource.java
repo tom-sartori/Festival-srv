@@ -29,7 +29,6 @@ public class VolunteerResource {
 	 * @return 201 if the volunteer is created.
 	 */
 	@POST
-	@RolesAllowed(Roles.ADMIN)
 	public Response create(String jsonBody) {
 		Volunteer volunteer = new Gson().fromJson(jsonBody, Volunteer.class);
 		volunteerService.create(volunteer);
@@ -124,7 +123,6 @@ public class VolunteerResource {
 	 */
 	@PATCH
 	@Path("/{id}")
-	@RolesAllowed(Roles.ADMIN)
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Volunteer volunteer = new Gson().fromJson(jsonBody, Volunteer.class);
 		volunteerService.update(id, volunteer);
@@ -139,7 +137,6 @@ public class VolunteerResource {
 	 */
 	@DELETE
 	@Path("/{id}")
-	@RolesAllowed(Roles.ADMIN)
 	public Response delete(@PathParam("id") String id) {
 		volunteerService.delete(id);
 		return Response.status(204).build();

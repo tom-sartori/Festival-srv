@@ -34,7 +34,6 @@ public class UserResource {
 	}
 
 	@GET
-	@RolesAllowed(Roles.ADMIN)
 	public List<User> getUsers() {
 		return userRepository.listAll();
 	}
@@ -48,7 +47,6 @@ public class UserResource {
 
 	@PUT
 	@Path("/{id}")
-	@RolesAllowed(Roles.ADMIN)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public void updateUser(@PathParam("id") String id, User user) {
@@ -74,7 +72,6 @@ public class UserResource {
 
 	@DELETE
 	@Path("/{id}")
-	@RolesAllowed(Roles.ADMIN)
 	public void deleteUser(@PathParam("id") String id) {
 		User user = userRepository.findById(new ObjectId(id));
 		userRepository.delete(user);

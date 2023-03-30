@@ -106,7 +106,6 @@ public class GameResource {
 	 */
 	@PATCH
 	@Path("/{id}")
-	@RolesAllowed(Roles.ADMIN)
 	public Response update(@PathParam("id") String id, String jsonBody) {
 		Game game = new Gson().fromJson(jsonBody, Game.class);
 		gameService.update(id, game);
@@ -121,7 +120,6 @@ public class GameResource {
 	 */
 	@DELETE
 	@Path("/{id}")
-	@RolesAllowed(Roles.ADMIN)
 	public Response delete(@PathParam("id") String id) {
 		gameService.delete(id);
 		return Response.status(204).build();

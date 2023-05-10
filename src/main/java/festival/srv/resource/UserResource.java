@@ -6,6 +6,7 @@ import festival.srv.constant.Roles;
 import festival.srv.entity.User;
 import festival.srv.repository.UserRepository;
 import org.bson.types.ObjectId;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.openapi.annotations.enums.SecuritySchemeType;
 import org.eclipse.microprofile.openapi.annotations.security.SecurityScheme;
 
@@ -27,6 +28,8 @@ import java.util.List;
 public class UserResource {
 
 	private final UserRepository userRepository;
+	@Inject
+	JsonWebToken jwt;
 
 	@Inject
 	public UserResource(UserRepository userRepository) {
